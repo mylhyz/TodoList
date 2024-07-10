@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS tasks (
+    pid INTEGER PRIMARY KEY AUTOINCREMENT,
+    id TEXT NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT,
+    completed BOOLEAN NOT NULL DEFAULT FALSE
+)
