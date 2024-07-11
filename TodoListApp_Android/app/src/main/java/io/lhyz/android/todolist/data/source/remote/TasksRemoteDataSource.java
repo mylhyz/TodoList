@@ -15,7 +15,7 @@
  */
 package io.lhyz.android.todolist.data.source.remote;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import io.lhyz.android.todolist.data.Task;
 import io.lhyz.android.todolist.data.source.TasksDataSource;

@@ -16,7 +16,7 @@
 package io.lhyz.android.todolist;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import io.lhyz.android.todolist.data.source.TasksRepository;
 import io.lhyz.android.todolist.data.source.local.TasksLocalDataSource;

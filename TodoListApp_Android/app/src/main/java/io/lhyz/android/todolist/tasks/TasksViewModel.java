@@ -17,8 +17,8 @@
 package io.lhyz.android.todolist.tasks;
 
 import android.content.Context;
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 import android.graphics.drawable.Drawable;
 
 import io.lhyz.android.todolist.BR;

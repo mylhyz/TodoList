@@ -16,8 +16,8 @@
 
 package io.lhyz.android.todolist.addedittask;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.lhyz.android.todolist.data.Task;
 import io.lhyz.android.todolist.data.source.TasksDataSource;

@@ -15,7 +15,7 @@
  */
 package io.lhyz.android.todolist.data;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.google.common.base.Objects;
 import com.j256.ormlite.field.DatabaseField;
