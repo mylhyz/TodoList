@@ -15,16 +15,27 @@
  */
 package io.lhyz.android.todolist.data.source.remote;
 
-import rx.Subscriber;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 /**
  * hello,android
  * Created by lhyz on 2016/8/4.
  */
-public abstract class DefaultSubscriber<T> extends Subscriber<T> {
+public abstract class DefaultSubscriber<T> implements Observer<T> {
+
     @Override
-    public void onCompleted() {
-        //PASS !!!
+    public void onSubscribe(@NonNull Disposable d) {
+
+    }
+
+    @Override
+    public void onComplete() {
+
     }
 
     @Override

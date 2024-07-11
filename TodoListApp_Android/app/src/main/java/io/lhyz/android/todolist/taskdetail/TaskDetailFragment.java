@@ -19,16 +19,18 @@ package io.lhyz.android.todolist.taskdetail;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import io.lhyz.android.todolist.R;
 import io.lhyz.android.todolist.addedittask.AddEditTaskActivity;
@@ -79,8 +81,7 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.taskdetail_frag, container, false);
 
@@ -91,8 +92,7 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
         setRetainInstance(true);
 
         // Set up floating action button
-        FloatingActionButton fab =
-                (FloatingActionButton) getActivity().findViewById(R.id.fab_edit_task);
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab_edit_task);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,11 +109,11 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_delete:
-                String taskId = getArguments().getString(ARGUMENT_TASK_ID);
-                mPresenter.deleteTask();
-                return true;
+        final int itemId = item.getItemId();
+        if (itemId == R.id.menu_delete) {
+            String taskId = getArguments().getString(ARGUMENT_TASK_ID);
+            mPresenter.deleteTask();
+            return true;
         }
         return false;
     }
@@ -155,14 +155,12 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
 
     @Override
     public void showTaskMarkedComplete() {
-        Snackbar.make(getView(), getString(R.string.task_marked_complete), Snackbar.LENGTH_LONG)
-                .show();
+        Snackbar.make(getView(), getString(R.string.task_marked_complete), Snackbar.LENGTH_LONG).show();
     }
 
     @Override
     public void showTaskMarkedActive() {
-        Snackbar.make(getView(), getString(R.string.task_marked_active), Snackbar.LENGTH_LONG)
-                .show();
+        Snackbar.make(getView(), getString(R.string.task_marked_active), Snackbar.LENGTH_LONG).show();
     }
 
     @Override

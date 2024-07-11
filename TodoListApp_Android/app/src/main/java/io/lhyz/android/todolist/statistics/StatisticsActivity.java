@@ -18,12 +18,15 @@ package io.lhyz.android.todolist.statistics;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.MenuItem;
 
 import io.lhyz.android.todolist.Injection;
@@ -95,17 +98,13 @@ public class StatisticsActivity extends AppCompatActivity {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        switch (menuItem.getItemId()) {
-                            case R.id.list_navigation_menu_item:
-                                Intent intent =
-                                        new Intent(StatisticsActivity.this, TasksActivity.class);
-                                startActivity(intent);
-                                break;
-                            case R.id.statistics_navigation_menu_item:
-                                // Do nothing, we're already on that screen
-                                break;
-                            default:
-                                break;
+                        final int itemId = menuItem.getItemId();
+                        if (itemId == R.id.list_navigation_menu_item) {
+                            Intent intent =
+                                    new Intent(StatisticsActivity.this, TasksActivity.class);
+                            startActivity(intent);
+                        } else if (itemId == R.id.statistics_navigation_menu_item) {
+                            // Do nothing, we're already on that screen
                         }
                         // Close the navigation drawer when an item is selected.
                         menuItem.setChecked(true);

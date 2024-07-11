@@ -17,16 +17,22 @@
 package io.lhyz.android.todolist.tasks;
 
 import android.content.Intent;
+
 import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
 import androidx.fragment.app.Fragment;
 import androidx.core.content.ContextCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.widget.PopupMenu;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -128,16 +134,13 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_clear:
-                mPresenter.clearCompletedTasks();
-                break;
-            case R.id.menu_filter:
-                showFilteringPopUpMenu();
-                break;
-            case R.id.menu_refresh:
-                mPresenter.loadTasks(true);
-                break;
+        final int itemId = item.getItemId();
+        if (itemId == R.id.menu_clear) {
+            mPresenter.clearCompletedTasks();
+        } else if (itemId == R.id.menu_filter) {
+            showFilteringPopUpMenu();
+        } else if (itemId == R.id.menu_refresh) {
+            mPresenter.loadTasks(true);
         }
         return true;
     }
@@ -157,16 +160,13 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.active:
-                        mPresenter.setFiltering(TasksFilterType.ACTIVE_TASKS);
-                        break;
-                    case R.id.completed:
-                        mPresenter.setFiltering(TasksFilterType.COMPLETED_TASKS);
-                        break;
-                    default:
-                        mPresenter.setFiltering(TasksFilterType.ALL_TASKS);
-                        break;
+                final int itemId = item.getItemId();
+                if (itemId == R.id.active) {
+                    mPresenter.setFiltering(TasksFilterType.ACTIVE_TASKS);
+                } else if (itemId == R.id.completed) {
+                    mPresenter.setFiltering(TasksFilterType.COMPLETED_TASKS);
+                } else {
+                    mPresenter.setFiltering(TasksFilterType.ALL_TASKS);
                 }
                 mPresenter.loadTasks(false);
                 return true;
