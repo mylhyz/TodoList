@@ -1,54 +1,73 @@
 package handlers
 
 import (
-	"gopkg.in/mgo.v2"
-	"github.com/labstack/echo"
 	"net/http"
-	"models"
-	"gopkg.in/mgo.v2/bson"
+	"server/todolist/src/models"
+
+	"github.com/labstack/echo/v4"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type H map[string]interface {
-
-}
-
-func GetTasks(db *mgo.Collection) echo.HandlerFunc {
+func GetTasks(db *mongo.Collection) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		result, err := models.GetTasks(db)
 		if err == nil {
 			return c.JSON(http.StatusOK, result)
 		} else {
-			return err
+			return c.JSON(http.StatusInternalServerError, err.Error())
 		}
 	}
 }
 
-func PutTask(db *mgo.Collection) echo.HandlerFunc {
+func GetTask(db *mongo.Collection) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		var task models.Task
-		task.Name = "lhyz"
-		c.Bind(&task)
-		id, err := models.PutTask(db, task.Name)
+		id := c.Param("id")
+		result, err := models.GetTask(db, id)
 		if err == nil {
-			return c.JSON(http.StatusCreated, H{
-				"created":id,
-			})
+			return c.JSON(http.StatusOK, result)
 		} else {
-			return err
+			return c.JSON(http.StatusInternalServerError, err.Error())
 		}
 	}
 }
 
-func DeleteTask(db *mgo.Collection) echo.HandlerFunc {
+func CreateTask(db *mongo.Collection) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		id := bson.ObjectIdHex(c.Param("id"))
-		_, err := models.DeleteTask(db, id)
-		if err == nil {
-			return c.JSON(http.StatusOK, H{
-				"deleted":id,
-			})
-		} else {
-			return err
+		var body models.TaskRequestBody
+		if err := c.Bind(&body); err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
 		}
+		result, err := models.CreateTask(db, body)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, err.Error())
+		}
+		// result 会返回一个 InsertedID 结构
+		return c.JSON(http.StatusOK, result)
+	}
+}
+
+func UpdateTask(db *mongo.Collection) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		id := c.Param("id")
+		var body models.TaskRequestBody
+		if err := c.Bind(&body); err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
+		}
+		result, err := models.UpdateTask(db, id, body)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, err.Error())
+		}
+		return c.JSON(http.StatusOK, result)
+	}
+}
+
+func DeleteTask(db *mongo.Collection) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		id := c.Param("id")
+		result, err := models.DeleteTask(db, id)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, err.Error())
+		}
+		return c.JSON(http.StatusOK, result)
 	}
 }
