@@ -12,7 +12,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/task",
+					"raw": "http://localhost:8080/api/v1/tasks",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -21,7 +21,7 @@
 					"path": [
 						"api",
 						"v1",
-						"task"
+						"tasks"
 					]
 				}
 			},
@@ -33,7 +33,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/task/123e4567-e89b-12d3-a456-426614174000",
+					"raw": "http://localhost:8080/api/v1/task/1234-5678-9010",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -43,7 +43,7 @@
 						"api",
 						"v1",
 						"task",
-						"123e4567-e89b-12d3-a456-426614174000"
+						"1234-5678-9010"
 					]
 				}
 			},
@@ -55,7 +55,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/task/123e4567-e89b-12d3-a456-426614174000",
+					"raw": "http://localhost:8080/api/v1/task/1234-5678-9010",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -65,7 +65,7 @@
 						"api",
 						"v1",
 						"task",
-						"123e4567-e89b-12d3-a456-426614174000"
+						"1234-5678-9010"
 					]
 				}
 			},
@@ -78,7 +78,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\":\"1234-5678-90\",\n    \"title\":\"t\",\n    \"description\":\"d\",\n    \"completed\":false\n}",
+					"raw": "{\n    \"title\":\"t1\",\n    \"description\":\"d1\",\n    \"completed\":true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -86,7 +86,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/v1/task/123e4567-e89b-12d3-a456-426614174000",
+					"raw": "http://localhost:8080/api/v1/task/1234-5678-9010",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -96,7 +96,7 @@
 						"api",
 						"v1",
 						"task",
-						"123e4567-e89b-12d3-a456-426614174000"
+						"1234-5678-9010"
 					]
 				}
 			},
@@ -109,7 +109,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\":\"1234-5678-90\",\n    \"title\":\"t\",\n    \"description\":\"d\",\n    \"completed\":false\n}",
+					"raw": "{\n    \"taskId\":\"1234-5678-9010\",\n    \"title\":\"t\",\n    \"description\":\"d\",\n    \"completed\":false\n}",
 					"options": {
 						"raw": {
 							"language": "json"

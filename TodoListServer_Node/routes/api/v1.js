@@ -102,7 +102,9 @@ router.put("/task/:id", async function (req, res) {
     console.log(
       `UPDATE ${ret.matchedCount}/${ret.modifiedCount} : ${ret.upsertedCount}/${ret.upsertedId}`
     );
-    const result = new Result(false, null, null);
+    const result = new Result(false, null, [
+      { taskId, title, description, completed },
+    ]);
     res.send(result);
   } catch (err) {
     const result = new Result(true, err.message, null);
