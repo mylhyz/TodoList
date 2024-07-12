@@ -1,10 +1,10 @@
 /**
  * Created by lhyz on 2016/7/24.
  */
-var request = require('supertest');
+const request = require('supertest');
 
 //noinspection JSCheckFunctionSignatures
-var req = request('http://localhost:3000/api/v1');
+const req = request('http://localhost:3000/api/v1');
 
 describe('REST API v1', function () {
     //测试GET方法

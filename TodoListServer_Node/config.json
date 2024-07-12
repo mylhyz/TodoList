@@ -1,5 +1,6 @@
 {
-  "db_host": "localhost",
+  "db_host": "127.0.0.1",
   "db_port": "27017",
-  "db_base": "todo-list"
+  "db_database": "todo-list",
+  "db_collection": "tasks"
 }
