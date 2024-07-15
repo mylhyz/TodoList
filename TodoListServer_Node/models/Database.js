@@ -60,16 +60,14 @@ class MongoDB {
     const db = await this.connect();
     return db.deleteOne({ taskId: taskId });
   }
-}
 
-// DB.prototype.deleteCompleted = function (callback) {
-//   MongoClient.connect(url, function (err, db) {
-//     if (err) {
-//       return callback(err);
-//     }
-//     db.collection("tasks").deleteMany({ completed: true }, callback);
-//     db.close();
-//   });
-// };
+  /**
+   * 删除所有已完成任务
+   */
+  async deleteComplete() {
+    const db = await this.connect();
+    return db.deleteMany({ completed: true });
+  }
+}
 
 module.exports = new MongoDB();

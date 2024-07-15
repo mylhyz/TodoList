@@ -63,6 +63,21 @@ router.post("/task", async function (req, res) {
 });
 
 /**
+ * 删除已完成的任务
+ */
+router.delete("/task/completed", async function (req, res) {
+  try {
+    const ret = await MongoDB.deleteComplete();
+    console.log(`DELETE COMPLETE ${ret.deletedCount}`);
+    const result = new Result(false, null, []);
+    res.send(result);
+  } catch (err) {
+    const result = new Result(true, err.message, null);
+    res.send(result);
+  }
+});
+
+/**
  * 删除一条数据
  *
  * 数据由id标识
@@ -72,7 +87,7 @@ router.delete("/task/:id", async function (req, res) {
   try {
     const ret = await MongoDB.delete(taskId);
     console.log(`DELETE ${ret.deletedCount}`);
-    const result = new Result(false, null, null);
+    const result = new Result(false, null, []);
     res.send(result);
   } catch (err) {
     const result = new Result(true, err.message, null);
@@ -105,6 +120,24 @@ router.put("/task/:id", async function (req, res) {
     const result = new Result(false, null, [
       { taskId, title, description, completed },
     ]);
+    res.send(result);
+  } catch (err) {
+    const result = new Result(true, err.message, null);
+    res.send(result);
+  }
+});
+
+router.put("/task/complete/:id", async function (req, res) {
+  const taskId = req.params.id;
+  const completed = req.body.completed;
+  try {
+    const ret = await MongoDB.update(taskId, {
+      completed: completed,
+    });
+    console.log(
+      `UPDATE ${ret.matchedCount}/${ret.modifiedCount} : ${ret.upsertedCount}/${ret.upsertedId}`
+    );
+    const result = new Result(false, null, []);
     res.send(result);
   } catch (err) {
     const result = new Result(true, err.message, null);
