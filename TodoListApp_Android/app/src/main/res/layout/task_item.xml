@@ -19,11 +19,11 @@
 
         <variable
             name="task"
-            type="io.lhyz.android.todolist.data.Task"/>
+            type="io.viper.android.todolist.todolist.data.Task"/>
 
         <variable
             name="actionHandler"
-            type="io.lhyz.android.todolist.tasks.TasksItemActionHandler"/>
+            type="io.viper.android.todolist.todolist.tasks.TasksItemActionHandler"/>
     </data>
 
     <LinearLayout

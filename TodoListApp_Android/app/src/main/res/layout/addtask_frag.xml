@@ -20,7 +20,7 @@
 
         <variable
             name="task"
-            type="io.lhyz.android.todolist.data.Task"/>
+            type="io.viper.android.todolist.todolist.data.Task"/>
     </data>
 
     <ScrollView

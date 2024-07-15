@@ -21,14 +21,14 @@
 
         <variable
             name="tasks"
-            type="io.lhyz.android.todolist.tasks.TasksViewModel"/>
+            type="io.viper.android.todolist.todolist.tasks.TasksViewModel"/>
 
         <variable
             name="actionHandler"
-            type="io.lhyz.android.todolist.tasks.TasksContract.Presenter"/>
+            type="io.viper.android.todolist.todolist.tasks.TasksContract"/>
     </data>
 
-    <io.lhyz.android.todolist.tasks.ScrollChildSwipeRefreshLayout
+    <io.viper.android.todolist.todolist.tasks.ScrollChildSwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -102,6 +102,6 @@
 
             </LinearLayout>
         </RelativeLayout>
-    </io.lhyz.android.todolist.tasks.ScrollChildSwipeRefreshLayout>
+    </io.viper.android.todolist.todolist.tasks.ScrollChildSwipeRefreshLayout>
 </layout>
 

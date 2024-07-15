@@ -21,7 +21,7 @@
 
         <variable
             name="stats"
-            type="io.lhyz.android.todolist.statistics.StatisticsViewModel"/>
+            type="io.viper.android.todolist.todolist.statistics.StatisticsViewModel"/>
     </data>
 
     <LinearLayout
