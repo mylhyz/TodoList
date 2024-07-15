@@ -74,75 +74,27 @@ public class TasksRemoteDataSource implements TasksDataSource {
 
     @Override
     public void saveTask(@NonNull Task task) {
-        sAPIManager.addOneTask(task, new DefaultSubscriber<APIManager.Result>() {
-            @Override
-            public void onSuccess(APIManager.Result result) {
-            }
-
-            @Override
-            public void onError(Throwable e) {
-            }
-        });
+        sAPIManager.addOneTask(task, new SilentSubscriber<>());
     }
 
     @Override
     public void updateTask(@NonNull Task task) {
-        sAPIManager.updateOneTask(task, new DefaultSubscriber<APIManager.Result>() {
-            @Override
-            public void onSuccess(APIManager.Result result) {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-        });
+        sAPIManager.updateOneTask(task, new SilentSubscriber<>());
     }
 
     @Override
     public void completeTask(@NonNull String taskId) {
-        sAPIManager.completeTask(taskId, new DefaultSubscriber<APIManager.Result>() {
-            @Override
-            public void onSuccess(APIManager.Result result) {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-        });
+        sAPIManager.completeTask(taskId, new SilentSubscriber<>());
     }
 
     @Override
     public void activateTask(@NonNull String taskId) {
-        sAPIManager.activeTask(taskId, new DefaultSubscriber<APIManager.Result>() {
-            @Override
-            public void onSuccess(APIManager.Result result) {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-        });
+        sAPIManager.activeTask(taskId, new SilentSubscriber<>());
     }
 
     @Override
     public void clearCompletedTasks() {
-        sAPIManager.deleteAllCompleted(new DefaultSubscriber<APIManager.Result>() {
-            @Override
-            public void onSuccess(APIManager.Result result) {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-        });
+        sAPIManager.deleteAllCompleted(new SilentSubscriber<>());
     }
 
     @Override
@@ -157,16 +109,6 @@ public class TasksRemoteDataSource implements TasksDataSource {
 
     @Override
     public void deleteTask(@NonNull String taskId) {
-        sAPIManager.deleteOneTask(taskId, new DefaultSubscriber<APIManager.Result>() {
-            @Override
-            public void onSuccess(APIManager.Result result) {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-        });
+        sAPIManager.deleteOneTask(taskId, new SilentSubscriber<>());
     }
 }

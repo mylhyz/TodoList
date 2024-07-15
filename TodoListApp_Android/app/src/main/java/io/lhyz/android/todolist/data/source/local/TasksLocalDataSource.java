@@ -16,11 +16,15 @@
 package io.lhyz.android.todolist.data.source.local;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.PreparedDelete;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -54,6 +58,13 @@ public class TasksLocalDataSource implements TasksDataSource {
         return INSTANCE;
     }
 
+    private @Nullable Task findTaskById(String taskId) throws SQLException {
+        QueryBuilder<Task, String> builder = mTasksDao.queryBuilder();
+        builder.where().eq("taskId", taskId);
+        PreparedQuery<Task> preparedQuery = builder.prepare();
+        return mTasksDao.queryForFirst(preparedQuery);
+    }
+
     @Override
     public void getAllTasks(@NonNull LoadTasksCallback callback) {
         try {
@@ -68,7 +79,11 @@ public class TasksLocalDataSource implements TasksDataSource {
     @Override
     public void getTask(@NonNull String taskId, @NonNull GetTaskCallback callback) {
         try {
-            Task task = mTasksDao.queryForId(taskId);
+            Task task = findTaskById(taskId);
+            if (task == null) {
+                callback.onDataNotAvailable();
+                return;
+            }
             callback.onTaskLoaded(task);
         } catch (SQLException e) {
             callback.onDataNotAvailable();
@@ -97,7 +112,10 @@ public class TasksLocalDataSource implements TasksDataSource {
     @Override
     public void completeTask(@NonNull String taskId) {
         try {
-            Task task = mTasksDao.queryForId(taskId);
+            Task task = findTaskById(taskId);
+            if (task == null) {
+                return;
+            }
             task.setCompleted(true);
             mTasksDao.update(task);
         } catch (SQLException e) {
@@ -108,7 +126,10 @@ public class TasksLocalDataSource implements TasksDataSource {
     @Override
     public void activateTask(@NonNull String taskId) {
         try {
-            Task task = mTasksDao.queryForId(taskId);
+            Task task = findTaskById(taskId);
+            if (task == null) {
+                return;
+            }
             task.setCompleted(false);
             mTasksDao.update(task);
         } catch (SQLException e) {
@@ -153,7 +174,10 @@ public class TasksLocalDataSource implements TasksDataSource {
     @Override
     public void deleteTask(@NonNull String taskId) {
         try {
-            mTasksDao.deleteById(taskId);
+            DeleteBuilder<Task, String> builder = mTasksDao.deleteBuilder();
+            builder.where().eq("taskId", taskId);
+            PreparedDelete<Task> preparedDelete = builder.prepare();
+            mTasksDao.delete(preparedDelete);
         } catch (SQLException e) {
             e.printStackTrace();
         }

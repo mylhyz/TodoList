@@ -17,6 +17,8 @@
 package io.lhyz.android.todolist.taskdetail;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -49,6 +51,11 @@ public class TaskDetailActivity extends AppCompatActivity {
 
         // Get the requested task id
         String taskId = getIntent().getStringExtra(EXTRA_TASK_ID);
+
+        if (TextUtils.isEmpty(taskId)) {
+            // TODO show error
+            finish();
+        }
 
         TaskDetailFragment taskDetailFragment = (TaskDetailFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);

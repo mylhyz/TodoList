@@ -37,7 +37,7 @@ import retrofit2.http.Path;
  */
 public class APIManager {
 
-    private static final String API_URL = "http://192.168.0.102:3000/api/v1/";
+    private static final String API_URL = "http://localhost:8080/api/v1/";
 
     /**
      * 结果
@@ -52,26 +52,26 @@ public class APIManager {
      * API
      */
     public interface TodoListService {
-        @GET("task")
+        @GET("tasks")
         Observable<Result> getAll();
 
         @GET("task/{id}")
-        Observable<Result> getOne(@Path("id") String id);
+        Observable<Result> getOne(@Path("id") String taskId);
 
         @POST("task")
         Observable<Result> addOne(@Body Task task);
 
         @DELETE("task/{id}")
-        Observable<Result> deleteOne(@Path("id") String id);
+        Observable<Result> deleteOne(@Path("id") String taskId);
+
+        @PUT("task/{id}")
+        Observable<Result> updateOne(@Path("id") String taskId, @Body Task task);
 
         @DELETE("task/completed")
         Observable<Result> deleteCompleted();
 
-        @PUT("task/{id}")
-        Observable<Result> updateOne(@Path("id") String id, @Body Task task);
-
         @PUT("task/complete/{id}")
-        Observable<Result> completeOne(@Path("id") String id, @Body Task task);
+        Observable<Result> completeOne(@Path("id") String taskId, @Body Task task);
 
     }
 
@@ -130,7 +130,7 @@ public class APIManager {
     }
 
     public void updateOneTask(Task modifiedTask, DefaultSubscriber<Result> result) {
-        mService.updateOne(modifiedTask.getId(), modifiedTask)
+        mService.updateOne(modifiedTask.getTaskId(), modifiedTask)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result);

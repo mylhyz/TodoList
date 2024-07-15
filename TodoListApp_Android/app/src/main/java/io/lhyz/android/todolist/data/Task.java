@@ -17,11 +17,11 @@ package io.lhyz.android.todolist.data;
 
 import androidx.annotation.Nullable;
 
-import com.google.common.base.Objects;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -33,9 +33,11 @@ public final class Task implements Serializable {
 
     private static final long serialVersionUID = -7050492019251241384L;
 
-    //注解id=true声明为此id是每行的唯一标识 identity（主键）
     @DatabaseField(id = true)
     private String id;
+
+    @DatabaseField(canBeNull = false)
+    private String taskId;
 
     @Nullable
     @DatabaseField(canBeNull = false)
@@ -56,28 +58,28 @@ public final class Task implements Serializable {
      * Use this constructor to create a new active Task.
      */
     public Task(@Nullable String title, @Nullable String description) {
-        id = UUID.randomUUID().toString();
+        this.taskId = UUID.randomUUID().toString();
         this.title = title;
         this.description = description;
-        completed = false;
+        this.completed = false;
     }
 
     /**
      * Use this constructor to create an active Task if the Task already has an id (copy of another
      * Task).
      */
-    public Task(@Nullable String title, @Nullable String description, String id) {
-        this.id = id;
+    public Task(@Nullable String title, @Nullable String description, String taskId) {
+        this.taskId = taskId;
         this.title = title;
         this.description = description;
-        completed = false;
+        this.completed = false;
     }
 
     /**
      * Use this constructor to create a new completed Task.
      */
     public Task(@Nullable String title, @Nullable String description, boolean completed) {
-        id = UUID.randomUUID().toString();
+        this.taskId = UUID.randomUUID().toString();
         this.title = title;
         this.description = description;
         this.completed = completed;
@@ -87,15 +89,15 @@ public final class Task implements Serializable {
      * Use this constructor to specify a completed Task if the Task already has an id (copy of
      * another Task).
      */
-    public Task(@Nullable String title, @Nullable String description, String id, boolean completed) {
-        this.id = id;
+    public Task(@Nullable String title, @Nullable String description, String taskId, boolean completed) {
+        this.taskId = taskId;
         this.title = title;
         this.description = description;
         this.completed = completed;
     }
 
-    public String getId() {
-        return id;
+    public String getTaskId() {
+        return taskId;
     }
 
     @Nullable
@@ -134,21 +136,23 @@ public final class Task implements Serializable {
                 (description == null || "".equals(description));
     }
 
+
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (this == o) return true;
+        if (!(o instanceof Task)) return false;
+
         Task task = (Task) o;
-        return Objects.equal(id, task.id) &&
-                Objects.equal(title, task.title) &&
-                Objects.equal(description, task.description);
+        return completed == task.completed && taskId.equals(task.taskId) && title.equals(task.title) && Objects.equals(description, task.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id, title, description);
+        int result = taskId.hashCode();
+        result = 31 * result + title.hashCode();
+        result = 31 * result + Objects.hashCode(description);
+        result = 31 * result + Boolean.hashCode(completed);
+        return result;
     }
 
     @Override

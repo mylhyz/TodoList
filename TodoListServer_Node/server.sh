@@ -1,3 +1,3 @@
 #!/bin/bash
 
-node ./bin/www
+DEBUG=TodoListServer:* PORT=8080 npm start

@@ -91,10 +91,10 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter {
     public void completeChanged(Task task, boolean isChecked) {
         task.setCompleted(isChecked);
         if (isChecked) {
-            mRepository.completeTask(task.getId());
+            mRepository.completeTask(task.getTaskId());
             mTaskDetailView.showTaskMarkedComplete();
         } else {
-            mRepository.activateTask(task.getId());
+            mRepository.activateTask(task.getTaskId());
             mTaskDetailView.showTaskMarkedActive();
         }
     }
