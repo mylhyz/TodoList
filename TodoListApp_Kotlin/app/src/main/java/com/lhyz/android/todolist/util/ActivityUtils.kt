@@ -1,7 +1,7 @@
 package com.lhyz.android.todolist.util
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 
 /**
  * hello,android

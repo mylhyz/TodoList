@@ -44,11 +44,11 @@ plugins {
 }
 
 android {
-    namespace = "io.viper.android.template.app"
+    namespace = "com.lhyz.android.todolist"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "io.viper.android.template.app"
+        applicationId = "io.viper.android.todolist"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -82,6 +82,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
