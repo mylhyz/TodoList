@@ -14,7 +14,7 @@
   ~ limitations under the License.
   -->
 
-<com.lhyz.android.todolist.tasks.ScrollChildSwipeRefreshLayout
+<io.viper.android.todolist.tasks.ScrollChildSwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/refresh_layout"
     android:layout_width="match_parent"
@@ -83,5 +83,5 @@
 
         </LinearLayout>
     </RelativeLayout>
-</com.lhyz.android.todolist.tasks.ScrollChildSwipeRefreshLayout>
+</io.viper.android.todolist.tasks.ScrollChildSwipeRefreshLayout>
 

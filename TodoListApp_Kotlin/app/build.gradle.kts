@@ -5,7 +5,7 @@
 //     compileSdkVersion 25
 //     buildToolsVersion "25.0.2"
 //     defaultConfig {
-//         applicationId "com.lhyz.android.todolist"
+//         applicationId "io.viper.android.todolist"
 //         minSdkVersion 19
 //         targetSdkVersion 25
 //         versionCode 1
@@ -44,7 +44,7 @@ plugins {
 }
 
 android {
-    namespace = "com.lhyz.android.todolist"
+    namespace = "io.viper.android.todolist"
     compileSdk = 34
 
     defaultConfig {
