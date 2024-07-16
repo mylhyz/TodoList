@@ -24,7 +24,11 @@ class StatisticsFragment : Fragment(), StatisticsContract.View {
     var mStatisticsTV: TextView? = null
     var mPresenter: StatisticsContract.Presenter? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val root = inflater!!.inflate(R.layout.statistics_frag, container, false)
         mStatisticsTV = root.findViewById(R.id.statistics) as TextView
         return root

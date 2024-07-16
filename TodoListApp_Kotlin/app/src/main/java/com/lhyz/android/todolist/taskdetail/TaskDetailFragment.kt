@@ -44,7 +44,11 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
         mPresenter!!.start()
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val root = inflater!!.inflate(R.layout.taskdetail_frag, container, false)
         setHasOptionsMenu(true)
         mDetailTitle = root.findViewById(R.id.task_detail_title) as TextView
@@ -52,7 +56,7 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
         mDetailCompleteStatus = root.findViewById(R.id.task_detail_complete) as CheckBox
 
         // Set up floating action button
-        val fab = activity.findViewById(R.id.fab_edit_task) as FloatingActionButton
+        val fab = requireActivity().findViewById(R.id.fab_edit_task) as FloatingActionButton
 
         fab.setOnClickListener { mPresenter!!.editTask() }
 
@@ -108,7 +112,7 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
     }
 
     override fun showTaskDeleted() {
-        activity.finish()
+        requireActivity().finish()
     }
 
     override fun showTaskMarkedComplete() {
@@ -129,7 +133,7 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
         mPresenter = presenter
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item!!.itemId) {
             R.id.menu_delete -> {
                 mPresenter!!.deleteTask()
@@ -139,13 +143,13 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
         return false
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater!!.inflate(R.menu.taskdetail_fragment_menu, menu)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (REQUEST_EDIT_TASK == requestCode && Activity.RESULT_OK == resultCode) {
-            activity.finish()
+            requireActivity().finish()
         }
     }
 }

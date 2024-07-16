@@ -54,7 +54,7 @@ class TasksFragment : Fragment(), TasksContract.View {
         mPresenter!!.start()
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater!!.inflate(R.layout.tasks_frag, container, false)
 
         val listView = root.findViewById(R.id.tasks_list) as ListView
@@ -68,15 +68,15 @@ class TasksFragment : Fragment(), TasksContract.View {
         mNoTaskAddView = root.findViewById(R.id.noTasksAdd) as TextView
         mNoTaskAddView!!.setOnClickListener { showAddTask() }
 
-        val fab = activity.findViewById(R.id.fab_add_task) as FloatingActionButton
+        val fab = requireActivity().findViewById(R.id.fab_add_task) as FloatingActionButton
         fab.setImageResource(R.drawable.ic_add)
         fab.setOnClickListener { mPresenter!!.addNewTask() }
 
         val swipeRefreshLayout = root.findViewById(R.id.refresh_layout) as ScrollChildSwipeRefreshLayout
         swipeRefreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(activity, R.color.colorPrimary),
-                ContextCompat.getColor(activity, R.color.colorAccent),
-                ContextCompat.getColor(activity, R.color.colorPrimaryDark)
+                ContextCompat.getColor(requireContext(), R.color.colorPrimary),
+                ContextCompat.getColor(requireContext(), R.color.colorAccent),
+                ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark)
         )
         swipeRefreshLayout.setScrollUpChild(listView)
         swipeRefreshLayout.setOnRefreshListener { mPresenter!!.loadTasks(false) }
@@ -86,11 +86,11 @@ class TasksFragment : Fragment(), TasksContract.View {
         return root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater!!.inflate(R.menu.tasks_fragment_menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item!!.itemId) {
             R.id.menu_clear -> mPresenter!!.clearCompletedTasks()
             R.id.menu_filter -> showFilteringPopUpMenu()
@@ -104,7 +104,7 @@ class TasksFragment : Fragment(), TasksContract.View {
             return
         }
 
-        val srl = view!!.findViewById(R.id.refresh_layout) as SwipeRefreshLayout
+        val srl = requireView().findViewById(R.id.refresh_layout) as SwipeRefreshLayout
         srl.post { srl.isRefreshing = true }
     }
 
@@ -183,7 +183,7 @@ class TasksFragment : Fragment(), TasksContract.View {
     }
 
     fun showMessage(message: String) {
-        Snackbar.make(view!!, message, Snackbar.LENGTH_LONG).show()
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
     }
 
 
@@ -201,7 +201,7 @@ class TasksFragment : Fragment(), TasksContract.View {
     }
 
     override fun showFilteringPopUpMenu() {
-        val popup = PopupMenu(context, activity.findViewById(R.id.menu_filter))
+        val popup = PopupMenu(context, requireActivity().findViewById(R.id.menu_filter))
         popup.menuInflater.inflate(R.menu.filter_tasks, popup.menu)
 
         popup.setOnMenuItemClickListener { item ->

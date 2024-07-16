@@ -37,14 +37,18 @@ class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val fab = activity.findViewById(R.id.fab_edit_task_done) as FloatingActionButton
+        val fab = requireActivity().findViewById<FloatingActionButton>(R.id.fab_edit_task_done)
         fab.setImageResource(R.drawable.ic_done)
-        fab.setOnClickListener({
+        fab.setOnClickListener {
             mPresenter!!.saveTask(mTitle!!.text.toString(), mDescription!!.text.toString())
-        })
+        }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val root = inflater!!.inflate(R.layout.addtask_frag, container, false)
         mTitle = root.findViewById(R.id.add_task_title) as TextView
         mDescription = root.findViewById(R.id.add_task_description) as TextView
@@ -57,8 +61,8 @@ class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
     }
 
     override fun showTasksList() {
-        activity.setResult(Activity.RESULT_OK)
-        activity.finish()
+        requireActivity().setResult(Activity.RESULT_OK)
+        requireActivity().finish()
     }
 
     override fun setTitle(title: String) {

@@ -70,7 +70,7 @@ class AddEditTaskActivity : AppCompatActivity() {
         addEditTaskFragment.setPresenter(mAddEditTaskPresenter!!)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         outState!!.putBoolean(SHOULD_LOAD_DATA_FROM_REPO_KEY, mAddEditTaskPresenter!!.isDataMissing())
         super.onSaveInstanceState(outState)
     }
