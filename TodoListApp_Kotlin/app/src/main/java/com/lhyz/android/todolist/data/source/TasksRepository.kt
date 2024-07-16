@@ -10,8 +10,10 @@ import java.util.*
  * hello,android
  * @author lhyz on 2017/2/6
  */
-class TasksRepository private constructor(tasksRemoteDataSource: TasksRemoteDataSource,
-                                          tasksLocalDataSource: TasksLocalDataSource) : TasksDataSource {
+class TasksRepository private constructor(
+    tasksRemoteDataSource: TasksRemoteDataSource,
+    tasksLocalDataSource: TasksLocalDataSource
+) : TasksDataSource {
 
     val tasksRemoteDataSource: TasksDataSource
     val tasksLocalDataSource: TasksDataSource
@@ -27,8 +29,10 @@ class TasksRepository private constructor(tasksRemoteDataSource: TasksRemoteData
 
     companion object {
 
-        fun getInstance(tasksRemoteDataSource: TasksRemoteDataSource,
-                        tasksLocalDataSource: TasksLocalDataSource): TasksRepository {
+        fun getInstance(
+            tasksRemoteDataSource: TasksRemoteDataSource,
+            tasksLocalDataSource: TasksLocalDataSource
+        ): TasksRepository {
             return TasksRepository(tasksRemoteDataSource, tasksLocalDataSource)
         }
     }
@@ -71,14 +75,14 @@ class TasksRepository private constructor(tasksRemoteDataSource: TasksRemoteData
         // Is the task in the local data source? If not, query the network.
         tasksLocalDataSource.getTask(taskId, object : TasksDataSource.GetTaskCallback {
             override fun onTaskLoaded(task: Task?) {
-                cachedTasks.put(task!!.id, task)
+                cachedTasks.put(task!!.taskId, task)
                 callback.onTaskLoaded(task)
             }
 
             override fun onDataNotAvailable() {
                 tasksRemoteDataSource.getTask(taskId, object : TasksDataSource.GetTaskCallback {
                     override fun onTaskLoaded(task: Task?) {
-                        cachedTasks.put(task!!.id, task)
+                        cachedTasks.put(task!!.taskId, task)
                         callback.onTaskLoaded(task)
                     }
 
@@ -94,15 +98,15 @@ class TasksRepository private constructor(tasksRemoteDataSource: TasksRemoteData
         tasksRemoteDataSource.saveTask(task)
         tasksLocalDataSource.saveTask(task)
 
-        cachedTasks.put(task.id, task)
+        cachedTasks.put(task.taskId, task)
     }
 
     override fun completeTask(task: Task) {
         tasksRemoteDataSource.completeTask(task)
         tasksLocalDataSource.completeTask(task)
 
-        val completedTask = Task(task.title, task.description, task.id, true)
-        cachedTasks.put(task.id, completedTask)
+        val completedTask = Task(task.taskId, task.title, task.description, true)
+        cachedTasks.put(task.taskId, completedTask)
     }
 
     override fun completeTask(taskId: String) {
@@ -115,9 +119,9 @@ class TasksRepository private constructor(tasksRemoteDataSource: TasksRemoteData
         tasksRemoteDataSource.activateTask(task)
         tasksLocalDataSource.activateTask(task)
 
-        val activeTask = Task(task.title, task.description, task.id)
+        val activeTask = Task(task.taskId, task.title, task.description)
 
-        cachedTasks.put(task.id, activeTask)
+        cachedTasks.put(task.taskId, activeTask)
     }
 
     override fun activateTask(taskId: String) {
@@ -174,7 +178,7 @@ class TasksRepository private constructor(tasksRemoteDataSource: TasksRemoteData
     private fun refreshCache(tasks: List<Task>) {
         cachedTasks.clear()
         for (task in tasks) {
-            cachedTasks.put(task.id, task)
+            cachedTasks.put(task.taskId, task)
         }
         cachedIsDirty = false
     }

@@ -112,7 +112,7 @@ class TasksPresenter(tasksRepository: TasksRepository, tasksView: TasksContract.
     }
 
     override fun openTaskDetails(requestedTask: Task) {
-        mTasksView.showTaskDetailsUi(requestedTask.id)
+        mTasksView.showTaskDetailsUi(requestedTask.taskId)
     }
 
     override fun completeTask(completedTask: Task) {

@@ -31,13 +31,16 @@ class TasksRemoteDataSource private constructor() : TasksDataSource {
 
     private fun addTask(title: String, description: String) {
         val newTask = Task(title, description)
-        TASKS_SERVICE_DATA.put(newTask.id, newTask)
+        TASKS_SERVICE_DATA.put(newTask.taskId, newTask)
     }
 
     override fun getTasks(callback: TasksDataSource.LoadTasksCallback) {
         // Simulate network by delaying the execution.
         val handler = Handler()
-        handler.postDelayed({ callback.onTasksLoaded(TASKS_SERVICE_DATA.values.toList()) }, SERVICE_LATENCY_IN_MILLIS)
+        handler.postDelayed(
+            { callback.onTasksLoaded(TASKS_SERVICE_DATA.values.toList()) },
+            SERVICE_LATENCY_IN_MILLIS
+        )
     }
 
     override fun getTask(taskId: String, callback: TasksDataSource.GetTaskCallback) {
@@ -49,12 +52,12 @@ class TasksRemoteDataSource private constructor() : TasksDataSource {
     }
 
     override fun saveTask(task: Task) {
-        TASKS_SERVICE_DATA.put(task.id, task)
+        TASKS_SERVICE_DATA.put(task.taskId, task)
     }
 
     override fun completeTask(task: Task) {
-        val completedTask = Task(task.title, task.description, task.id, true)
-        TASKS_SERVICE_DATA.put(task.id, completedTask)
+        val completedTask = Task(task.taskId, task.title, task.description, true)
+        TASKS_SERVICE_DATA.put(task.taskId, completedTask)
     }
 
     override fun completeTask(taskId: String) {
@@ -62,8 +65,8 @@ class TasksRemoteDataSource private constructor() : TasksDataSource {
     }
 
     override fun activateTask(task: Task) {
-        val activeTask = Task(task.title!!, task.description, task.id)
-        TASKS_SERVICE_DATA.put(task.id, activeTask)
+        val activeTask = Task(task.taskId, task.title!!, task.description)
+        TASKS_SERVICE_DATA.put(task.taskId, activeTask)
     }
 
     override fun activateTask(taskId: String) {

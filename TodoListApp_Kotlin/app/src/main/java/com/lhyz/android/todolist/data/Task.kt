@@ -9,16 +9,30 @@ import java.util.*
  * 声明一个数据类
  */
 
-data class Task(val title: String?,
-                val description: String?,
-                val id: String,
-                val completed: Boolean) {
+data class Task(
+    val taskId: String,
+    val title: String?,
+    val description: String?,
+    val completed: Boolean
+) {
 
-    constructor(title: String?, description: String?) : this(title, description, UUID.randomUUID().toString(), false)
+    constructor(title: String?, description: String?) : this(
+        UUID.randomUUID().toString(),
+        title,
+        description,
+        false
+    )
 
-    constructor(title: String?, description: String?, id: String) : this(title, description, id, false)
+    constructor(taskId: String, title: String?, description: String?) : this(
+        taskId,
+        title,
+        description,
+        false
+    )
 
-    constructor(title: String?, description: String?, completed: Boolean) : this(title, description, UUID.randomUUID().toString(), completed)
+    constructor(title: String?, description: String?, completed: Boolean) : this(
+        UUID.randomUUID().toString(), title, description, completed
+    )
 
     fun getTitleForList(): String? {
         if (title != null && !title.isEmpty()) {

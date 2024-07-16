@@ -8,11 +8,12 @@ import com.lhyz.android.todolist.data.source.TasksRepository
  * hello,android
  * @author lhyz on 2017/2/7
  */
-class AddEditTaskPresenter(taskId: String?,
-                           tasksRepository: TasksRepository,
-                           addTaskView: AddEditTaskContract.View,
-                           shouldLoadDataFromRepo: Boolean)
-    : AddEditTaskContract.Presenter, TasksDataSource.GetTaskCallback {
+class AddEditTaskPresenter(
+    taskId: String?,
+    tasksRepository: TasksRepository,
+    addTaskView: AddEditTaskContract.View,
+    shouldLoadDataFromRepo: Boolean
+) : AddEditTaskContract.Presenter, TasksDataSource.GetTaskCallback {
 
     val mTasksRepository: TasksRepository = tasksRepository
     val mAddTaskView: AddEditTaskContract.View = addTaskView
@@ -79,7 +80,7 @@ class AddEditTaskPresenter(taskId: String?,
         if (isNewTask()) {
             throw RuntimeException("updateTask() was called but task is new.");
         }
-        mTasksRepository.saveTask(Task(title, description, mTaskId!!))
+        mTasksRepository.saveTask(Task(mTaskId!!, title, description))
         mAddTaskView.showTasksList()
     }
 }

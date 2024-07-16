@@ -105,7 +105,7 @@ class TasksFragment : Fragment(), TasksContract.View {
         }
 
         val srl = requireView().findViewById(R.id.refresh_layout) as SwipeRefreshLayout
-        srl.post { srl.isRefreshing = true }
+        srl.post { srl.isRefreshing = active }
     }
 
     override fun showTasks(tasks: List<Task>) {
